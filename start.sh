@@ -10,7 +10,7 @@ else
     echo "Updating...."
     sudo apt update &> /dev/null
     echo "Installing Docker....."
-    sudo apt install docker &> /dev/null
+    sudo snap install docker &> /dev/null
     echo "Done."
 fi
 
