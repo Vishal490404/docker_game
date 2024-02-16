@@ -5,14 +5,10 @@
 if command -v "docker" &> /dev/null; then
     echo "Docker already exists"
 else
-    release_notes = /etc/os-release
-    if grep -q "Ubuntu" $release_notes
-    then
-        clear
-        echo " Please wait... "
-        sudo apt update && sudo apt upgrade &> /dev/null
-        sudo apt install docker &> /dev/null
-    fi
+    clear
+    echo " Please wait... "
+    sudo apt update && sudo apt upgrade &> /dev/null
+    sudo apt install docker &> /dev/null
 fi
 
 if docker images --format '{{.Repository}}:{{.Tag}}' | grep -q "^wildwarrior44/the_game_iamge:latest$"; 
