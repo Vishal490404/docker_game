@@ -6,9 +6,12 @@ if command -v "docker" &> /dev/null; then
     echo "Docker already exists"
 else
     clear
-    echo " Please wait... "
-    sudo apt update && sudo apt upgrade &> /dev/null
+    echo "Please wait...."
+    echo "Updating...."
+    sudo apt update &> /dev/null
+    echo "Installing Docker....."
     sudo apt install docker &> /dev/null
+    echo "Done."
 fi
 
 if docker images --format '{{.Repository}}:{{.Tag}}' | grep -q "^wildwarrior44/the_game_iamge:latest$"; 
