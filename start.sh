@@ -1,26 +1,31 @@
 #!/bin/bash
 
 # If docker not in machine install docker
-
-if command -v "docker" &> /dev/null; then
-    echo "Docker already exists"
-else
+if ! command -v "docker" &> /dev/null; then
     clear
-    echo "Please wait...."
-    echo "Updating...."
+    echo "Please wait..."
+    echo "Updating..."
     sudo apt update &> /dev/null
-    echo "Installing Docker....."
+    echo "Installing Docker..."
     sudo snap install docker &> /dev/null
     echo "Done."
-fi
-
-if docker images --format '{{.Repository}}:{{.Tag}}' | grep -q "^wildwarrior44/the_game_iamge:latest$"; 
-then
-    echo "Level already exists"
 else
-    echo "Pulling level..."
-    docker pull wildwarrior44/the_game_iamge &> /dev/null
+    echo "Docker already exists"
 fi
 
-docker run --hostname wlug --user root -v /var/run/docker.sock:/var/run/docker.sock -it --name the_game wildwarrior44/the_game_image /bin/bash
+# Check if the container exists
+if docker ps -a --filter "name=the_game" --format "{{.Names}}" | grep -q "the_game"; then
+    echo "Container 'the_game' already exists. Starting and attaching to it..."
+    docker start the_game
+    docker attach the_game
+else
+    if docker images --format '{{.Repository}}:{{.Tag}}' | grep -q "^wildwarrior44/the_game_iamge:latest$"; then
+        echo "Level already exists"
+    else
+        echo "Pulling level..."
+        docker pull wildwarrior44/the_game_iamge &> /dev/null
+    fi
 
+    echo "Creating and running the container..."
+    docker run --hostname wlug --user root -v /var/run/docker.sock:/var/run/docker.sock -it --name the_game wildwarrior44/the_game_image /bin/bash
+fi
