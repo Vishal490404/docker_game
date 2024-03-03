@@ -94,7 +94,7 @@ fi
 if docker images --format '{{.Repository}}:{{.Tag}}' | grep -q "^busybox:latest$" && [ "${visited[4]}" -eq 1 ]; then 
     echo "Incomplete task-6"
     # progress_bar 100
-elif  [ "${visited[5]}" -eq 1 ]; then
+elif  [ "${visited[4]}" -eq 1 ]; then
     visited[5]=1
     echo "Great!! Task-6 is completed."
 else
@@ -129,4 +129,3 @@ if [ "${visited[5]}" -eq 1 ]; then
     echo "Now that you have come so far, find the flag which is hidden in the text file."
     echo "wlug{aqspd7443e}" > not_a_flag.txt
 fi
-    
