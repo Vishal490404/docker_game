@@ -127,5 +127,5 @@ fi
 
 if [ "${visited[5]}" -eq 1 ]; then
     echo "Now that you have come so far, find the flag which is hidden in the text file."
-    echo "wlug{aqspd7443e}" > not_a_flag.txt
+    echo "WLUG{aqspd7443e}" > not_a_flag.txt
 fi
